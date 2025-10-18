@@ -71,7 +71,7 @@ canvas {
                 W = window.innerWidth;
                 H = window.innerHeight;
                 canvas.width = W;
-                convs.height = H;
+                convas.height = H;
             });
 
             // Control elements
@@ -120,7 +120,7 @@ canvas {
             };
             togglePauseBtn.onclick = () => {
                 paused = !paused;
-                tagglePauseBtn.textContent = paused ? 'Resume' : 'Pause';
+                togglePauseBtn.textContent = paused ? 'Resume' : 'Pause';
                 if (!paused) animate();
             };
 
