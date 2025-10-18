@@ -89,7 +89,7 @@ canvas {
             const togglePauseBtn = document.getElementById('togglePause');
 
             let params = {
-                particleCount: ParseInt(cntSlider.value),
+                particleCount: parseInt(cntSlider.value),
                 maxDist: parseInt(distSlider.value),
                 speedFactor: parseFloat(speedSlider.value),
                 lineWidth: parseFloat(lineWSlider.value),
@@ -120,7 +120,7 @@ canvas {
             };
             togglePauseBtn.onclick = () => {
                 paused = !paused;
-                tagglePauseBtn.textContent = paused ? 'Resume' : "Pause';
+                tagglePauseBtn.textContent = paused ? 'Resume' : 'Pause';
                 if (!paused) animate();
             };
 
@@ -157,6 +157,91 @@ canvas {
                     if (this.x < 0 || this.x > W) this.vx *= -1;
                     if (this.y < 0 || this.y > H) this.vy *= -1;
 
+                    // interaction with mouse (repel)
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const dx = this.x - mouse.x;
+                        const dy = this.y - mouse.y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < mouse.radius) {
+                            const force = (mouse.radius - dist) / mouse.radius;
+                            const angle = Math.atan2(dy, dx);
+                            this.vx += Math.cos(angle) * force * 0.5;
+                            this.vy += Math.sin(angle) * force * 0.5;
+                        }
+                    }
 
+                    // slowly shift hue
+                    this.hue = (this.hue + params.hueShiftSpeed) % 360;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsl(${this.hue}, 70%, 60%) `;
+                    ctx.fill();
+                }
+            }
 
-        
+            let particles = [];
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < params.particleCount; i++) {
+                    const x = Math.random() + W;
+                    const y = Math.random() * H;
+                    particles.push(new Particle(x, y));
+                }
+            }
+
+            function adjustParticleCount () {
+                const diff = params.particleCount - particles.length;
+                if (diff > 0) {
+                    for (let i = 0; i < diff; i++) {
+                        particles.push (new Particle(Math.random() * W, Math.random() * H));
+                    }
+                } else if (diff < 0) {
+                    particles.splice(diff);
+                }
+            }
+
+            function connectParticles() {
+                for (let i = 0; i < particles.length; i++) {
+                    const a = particles[i];
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const b = particles[j];
+                        const dx = a.x - b.x;
+                        const dy = a.y - b.y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < params.maxDist) {
+                            const alpha = 1 - dist / params.maxDist;
+                            ctx.strokeStyle = `hsla(${a.hue}, 70%, 50%, ${alpha})`;
+                            ctx.lineWidth = params.lineWidth;
+                            ctx.beginPath();
+                            ctx.moveTo(a.x, a.y);
+                            ctx.lineTo(b.x, b.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                if (paused) return;
+                ctx.fillStyle = 'rgba (10, 10, 10, 0.3)';
+                ctx.fillRect(0, 0, W, H);
+
+                for (let p of particles) {
+                    p.update();
+                    p.draw();
+                }
+                connectParticles();
+
+                requestAnimationFrame(animate);
+            }
+
+            // initialize & start
+            initParticles();
+            animate();
+
+        </script>
+    </body>
+</html>
+
