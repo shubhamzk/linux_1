@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title> Animation Demo</title>
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #0a0a0a;
+    color: #fff;
+    font-family: sans-serif;
+}
+#controls {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 100;
+}
+#controls label {
+    displat: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+#controls input[type=range] {
+    width: 150px;
+}
+#controls button {
+    margin-top: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+canvas {
+    display: block;
+}
+</style>
+    </head>
+    <body>
+        <div id="controls">
+            <label>Particle count: <span id="cntVal">200</span>
+                <input id="cnt" type="range" min="50" max="500" value="200" />
+            </label>
+            <label>Max connect dist: <span id="distVal">150</span>
+                <input id="dist" type="range" min="50" max="300" value="150" />
+            </label>
+            <label>Speed: <span id="speedVal">1</span>
+                <input id="speed" type="range" min="0.2" max="3" step="0.1" value="1" />
+            </label>
+            <label>Line width: <span id="lineWval">1</span>
+                <input id="lineW" type="range" min="0.2" max="3" step="0.1" value="1" />
+            </label>
+            <label>Hue shift speed: <span id="hueVal">0.5</span>
+                <input id="hue" type="range" min="0.1" max="2" step="0.1" value="0.5" />
+            </label>
+            <button id="togglePause">Pause</button>
+        </div>
+        <canvas id="c"></canvas>
+
+        <script>
+            const canvas = document.getElementById('c');
+            const ctx = canvas.getContext('2d');
+            let W = window.innerWidth, H = window.innerHeight;
+            canvas.width = W;
+            canvas.height = H;
+
+            window.addEventListener('resize', () => {
+                W = window.innerWidth;
+                H = window.innerHeight;
+                canvas.width = W;
+                convs.height = H;
+            });
+
+            // Control elements
+            const cntSlider = document.getElementById('cnt');
+            const distSlider = document.getElementById('dist');
+            const speedSlider = document.getElementById('speed');
+            const lineWSlider = document.getElementById('lineW');
+            const hueSlider = document.getElementById('hue');
+
+            const cntVal = document.getElementById('cntVal');
+            const distVal = document.getElementById('distVal');
+            const speedVal = document.getElementById('speedVal');
+            const lineWVal = document.getElementById('lineWVal');
+            const hueVal = document.getElementById('hueVal');
+            const togglePauseBtn = document.getElementById('togglePause');
+
+            let params = {
+                particleCount: ParseInt(cntSlider.value),
+                maxDist: parseInt(distSlider.value),
+                speedFactor: parseFloat(speedSlider.value),
+                lineWidth: parseFloat(lineWSlider.value),
+                hueShiftSpeed: parseFloat(hueSlider.value),
+            };
+            let paused = false;
+
+            cntSlider.oninput = () => {
+                params.particleCount = parseInt(cntSlider.value);
+                cntVal.textContent = cntSlider.value;
+                adjustParticleCount();
+            };
+            distSlider.oninput = () => { 
+
+
+        
