@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kindle Chases Snake & Mouse</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #111, #222);
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      perspective: 1000px;
+    }
+
+    .game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      transform-style: preserve-3d;
+      overflow: hidden;
+    }
+
+    .character,
+    .snake,
+    .mouse {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      transform-style: preserve-3d;
+      transition: transform 0.2s linear;
+    }
+
+    .character {
+      background-color: #0077ff;
+      box-shadow: 0 5px 15px rgba(0, 119, 255, 0.5);
+      border-radius: 8px;
+      z-index: 5;
+    }
+
+    .snake {
+      background-color: #00ff00;
+      border-radius: 20px;
+      box-shadow: 0 5px 10px rgba(0, 255, 0, 0.4);
+    }
+
+    .mouse {
+      background-color: #cccccc;
+      border-radius: 50%;
+      box-shadow: 0 5px 10px rgba(200, 200, 200, 0.3);
+    }
+
+    .info {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 15px;
+      border-radius: 6px;
+      z-index: 10;
+      font-size: 14px;
+    }
+
+    .flash {
+      animation: flash 0.3s ease;
+    }
+
+    @keyframes flash {
+      0% {
+        box-shadow: 0 0 15px 5px red;
+      }
+      100% {
+        box-shadow: none;
+      }
+    }
+
+    .scoreboard {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 5px;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <!-- Game Info -->
+  <div class="info">
+    <strong>Kindle Chase</strong><br />
+    Blue = Kindle (You)<br />
+    Green = Snake, Gray = Mouse<br />
+    Kindle catches them when close!
+  </div>
+
+  <!-- Scoreboard -->
+  <div class="scoreboard" id="scoreboard">
+    Snake Caught: 0 | Mouse Caught: 0
+  </div>
+
+  <!-- Game Container -->
+  <div class="game-container" id="game">
+    <div class="character" id="kindle"></div>
+    <div class="snake" id="snake"></div>
+    <div class="mouse" id="mouse"></div>
+  </div>
+
+  <script>
+    // Game elements
+    const kindle = document.getElementById("kindle");
+    const snake = document.getElementById("snake");
+    const mouse = document.getElementById("mouse");
+    const scoreboard = document.getElementById("scoreboard");
+
+    // Game area
+    const gameWidth = window.innerWidth;
+    const gameHeight = window.innerHeight;
+
+    // Positions
+    let kindlePos = { x: 100, y: 100 };
+    let snakePos = { x: 400, y: 300 };
+    let mousePos = { x: 700, y: 200 };
+
+    // Score tracking
+    let snakeCaught = 0;
+    let mouseCaught = 0;
+
+    // Movement speeds
+    const kindleSpeed = 1.7;
+    const fleeSpeed = 2.3;
+    const randomSpeed = 1.2;
+
+    // --- Utility functions ---
+    function updatePosition(el, pos) {
+      el.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+    }
+
+    function getDistance(a, b) {
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function moveTowards(from, to, speed = 2) {
+      const dx = to.x - from.x;
+      const dy = to.y - from.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist === 0) return from;
+      return {
+        x: from.x + (dx / dist) * speed,
+        y: from.y + (dy / dist) * speed,
+      };
+    }
+
+    function moveAway(from, avoid, speed = 2) {
+      const dx = from.x - avoid.x;
+      const dy = from.y - avoid.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist === 0) return from;
+      return {
+        x: from.x + (dx / dist) * speed,
+        y: from.y + (dy / dist) * speed,
+      };
+    }
+
+    function bound(pos) {
+      return {
+        x: Math.min(Math.max(0, pos.x), gameWidth - 40),
+        y: Math.min(Math.max(0, pos.y), gameHeight - 40),
+      };
+    }
+
+    function randomWiggle(pos) {
+      return {
+        x: pos.x + (Math.random() * 4 - 2),
+        y: pos.y + (Math.random() * 4 - 2),
+      };
+    }
+
+    function flash(el) {
+      el.classList.add("flash");
+      setTimeout(() => el.classList.remove("flash"), 300);
+    }
+
+    function updateScoreboard() {
+      scoreboard.innerText = `Snake Caught: ${snakeCaught} | Mouse Caught: ${mouseCaught}`;
+    }
+
+    function respawn(pos) {
+      return {
+        x: Math.random() * (gameWidth - 100) + 50,
+        y: Math.random() * (gameHeight - 100) + 50,
+      };
+    }
+
+    // --- Game Logic ---
+    function animate() {
+      // Kindle moves toward the closer target
+      const distSnake = getDistance(kindlePos, snakePos);
+      const distMouse = getDistance(kindlePos, mousePos);
+      const target = distSnake < distMouse ? snakePos : mousePos;
+
+      kindlePos = moveTowards(kindlePos, target, kindleSpeed);
+      kindlePos = bound(kindlePos);
+
+      // Snake behavior
+      if (getDistance(snakePos, kindlePos) < 120) {
+        snakePos = moveAway(snakePos, kindlePos, fleeSpeed);
+      } else {
+        snakePos = randomWiggle(snakePos);
+      }
+
+      // Mouse behavior
+      if (getDistance(mousePos, kindlePos) < 120) {
+        mousePos = moveAway(mousePos, kindlePos, fleeSpeed + 0.5);
+      } else {
+        mousePos = randomWiggle(mousePos);
+      }
+
+      // Check for collisions
+      if (getDistance(kindlePos, snakePos) < 30) {
+        flash(snake);
+        snakeCaught++;
+        snakePos = respawn(snakePos);
+        updateScoreboard();
+      }
+
+      if (getDistance(kindlePos, mousePos) < 30) {
+        flash(mouse);
+        mouseCaught++;
+        mousePos = respawn(mousePos);
+        updateScoreboard();
+      }
+
+      // Bound positions
+      snakePos = bound(snakePos);
+      mousePos = bound(mousePos);
+
+      // Update DOM
+      updatePosition(kindle, kindlePos);
+      updatePosition(snake, snakePos);
+      updatePosition(mouse, mousePos);
+
+      requestAnimationFrame(animate);
+    }
+
+    // --- Start the game loop ---
+    animate();
+
+    // Optional: Arrow key movement (manual Kindle control)
+    // Uncomment below if you'd like to move Kindle manually instead
+
+    /*
+    window.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case "ArrowUp":
+          kindlePos.y -= 10;
+          break;
+        case "ArrowDown":
+          kindlePos.y += 10;
+          break;
+        case "ArrowLeft":
+          kindlePos.x -= 10;
+          break;
+        case "ArrowRight":
+          kindlePos.x += 10;
+          break;
+      }
+    });
+    */
+
+  </script>
+</body>
+</html>
+
+
+
+
