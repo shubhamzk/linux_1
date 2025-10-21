@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MegaStore | Product Listing</title>
+	<link rel="stylesheet" href="mypractice03.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<header class="main-header">
+	<div class="logo">MegaStore</div>
+	<nav class="main-nav">
+		<a href="#">Home</a>
+		<a href="#">Shop</a>
+		<a href="#">About</a>
+		<a href="#">Contact</a>
+	</nav>
+	<div class="user-actions">
+		<input type="search" placeholder="Search products...">
+		<button class="cart-btn"><i class="fas fa-shopping-cart"></i>Cart(3)</button>
+		<button class="menu-toggle-btn" id="menu-toggle"><i class="fas fa-bars"></i></button>
+	</div>
+</header>
+
+<main class="container">
+	<p class="breadcrumbs">Home / Shop / **Electronics**</p>
+
+	<h1>Electronics & Gadgets</h1>
+
+	<div class="shop-layout">
+
+		<aside class="sidebar">
+			<h2>Filters</h2>
+			<section class="filter-group">
+				<h3>Category</h3>
+				<ul>
+					<li><a href="#">Laptops</a></li>
+					<li><a href="#">Phones</a></li>
+					<li><a href="#">Cameras</a></li>
+					<li><a href="#">Accessories</a></li>
+				</ul>
+			</section>
+			<section class="filter-group">
+				<h3>Price Range</h3>
+				<input type="range" min="0" max="1000" value="500">
+				<p>$0 - $1000</p>
+			</section>
+			<section class="filter-group">
+				<h3>Brand</h3>
+				<label><input type="checkbox"> Apple</label>
+				<label><input type="checkbox"> Samsung</label>
+				<label><input type="checkbox"> Sony</label>
+			</section>
+			<button class="apply-filters-btn">Apply Filters</button>
+		</aside>
+
+		<section class="product-grid">
+			<article class="product-card">
+				<img src="placeholder.jpg" alt="Product Image" class="product-image">
+				<h3 class="product=title">Ultra HD Smart TV</h3>
+				<p class="product-brand">BrandX</p>
+				<div class="product-price">$699.99</div>
+				<div class="product-rating">
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star-half-alt"></i>
+					<i class="far fa-star"></i>
+				</div>
+				<button class="add-to-cart-btn">Add to Cart</button>
+			</article>
+
+			<article class="product-card">
+				<img src="placeholder.jpg" alt="Product Image" class="product-image">
+				<h3 class="product-brand">Noise-Cancelling Headphones</h3>
+				<p class="product-brand">AudioPro</p>
+				<div class="product-price">$199.50</div>
+				<div class="product-rating">
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+				</div>
+				<button class="add-to-cart-btn">Add to Cart</button>
+			</article>
+
+			<div class="pagination">
+				<a href="#">&iaquo;Prev</a>
+				<a href="#" class="active">1</a>
+				<a href="#">2</a>
+				<a href="#">3</a>
+				<a href="#">Next &raquo;</a>
+			</div>
+		</section>
+	</div>
+
+</main>
+
+<footer class="main-footer">
+	<div class="footer-links">
+		<section>
+			<h4>Customer Service</h4>
+			<ul>
+				<li><a href="#">Help Center</a></li>
+				<li><a href="#">Returns</a></li>
+				<li><a href="">Shipping</a></li>
+			</ul>
+		</section>
+		<section>
+			<h4>About Us</h4>
+			<ul>
+				<li><a href="#">Our Story</a></li>
+				<li><a href="#">Careers</a></li>
+			</ul>
+		</section>
+	</div>
+	<p>&copy;2025 MegaStore.All right reserved.</p>
+</footer>
+
+<script src="mypractice04.js"></script>
+</body>
+</html>
