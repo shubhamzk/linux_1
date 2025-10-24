@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shubham - Ultimate Shopping Experience</title>
+<style>
+  /* Reset and base styles */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin:0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f8fa;
+    color: #222;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  img {
+    max-width: 100%;
+    display: block;
+  }
+  /* Header styles */
+  header {
+    background-color: #121214;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffcc00;
+    cursor: pointer;
+  }
+  nav {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+  }
+  nav a {
+    font-weight: 600;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+  }
+  nav a:hover {
+    background-color: #ffcc00;
+    color: #121214;
+  }
+  /* Search bar */
+  .search-container {
+    flex: 1 1 400px;
+    max-width: 500px;
+    margin: 0 25px;
+    position: relative;
+  }
+  .search-container input[type="text"] {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border-radius: 25px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  }
+  .search-container svg {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    fill: #999;
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Hero slider */
+  .hero-slider {
+    position: relative;
+    overflow: hidden;
+    max-height: 450px;
+    border-radius: 12px;
+    margin: 30px auto;
+    max-width: 1200px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    background-color: #ddd;
+  }
+  .slides {
+    display: flex;
+    transition: transform 0.7s ease;
+    width: 300%;
+  }
+  .slide {
+    min-width: 100%;
+    height: 450px;
+    position: relative;
+    color: white;
+  }
+  .slide img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 12px;
+    filter: brightness(0.7);
+  }
+  .slide-content {
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    transform: translateY(-50%);
+    max-width: 500px;
+  }
+  .slide-content h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+  }
+  .slide-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+  }
+  .slide-content button {
+    background-color: #ffcc00;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    color: #121214;
+    transition: background-color 0.3s ease;
+  }
+  .slide-content button:hover {
+    background-color: #e6b800;
+  }
+  /* Slider navigation arrows */
+  .slider-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    pointer-events: none;
+  }
+  .slider-nav button {
+    pointer-events: all;
+    position: absolute;
+    background-color: rgba(0,0,0,0.4);
+    border: none;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px 14px;
+    border-radius: 50%;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  .slider-nav button:hover {
+    background-color: rgba(0,0,0,0.7);
+  }
+  .slider-nav .prev {
+    left: 10px;
+  }
+  .slider-nav .next {
+    right: 10px;
+  }
+
+  /* Categories Section */
+  .categories {
+    max-width: 1200px;
+    margin: 60px auto 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 25px;
+    padding: 0 20px;
+  }
+  .category-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.07);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .category-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+  }
+  .category-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+  .category-card h3 {
+    padding: 15px 20px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #121214;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" tabindex="0">SK E-commerce</div>
+  <div class="search-container">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 2a8 8 0 015.292 13.708l5 5-1.414 1.414-5-5A8 8 0 1110 2zm0 2a6 6 0 100 12 6 6 0 000-12z"></path></svg>
+    <input type="text" placeholder="Search products, brands, categories..." aria-label="Search products" />
+  </div>
+  <nav role="navigation" aria-label="Main Navigation">
+    <a href="#" tabindex="0">Login</a>
+    <a href="#" tabindex="0">Orders</a>
+    <a href="#" tabindex="0">Cart</a>
+  </nav>
+</header>
+
+<!-- Hero slider -->
+<section class="hero-slider" aria-label="Featured Products Slider">
+  <div class="slides" id="slides">
+    <div class="slide" style="background:#333">
+      <img src="https://source.unsplash.com/1200x450/?electronics,gadgets" alt="Latest Electronics Deals" />
+      <div class="slide-content">
+        <h1>Discover Cutting-Edge Electronics</h1>
+        <p>Upgrade your tech with the latest gadgets and devices at unbeatable prices.</p>
+        <button onclick="alert('Explore Electronics')">Shop Now</button>
+      </div>
+    </div>
+    <div class="slide" style="background:#1a1a40">
+      <img src="https://source.unsplash.com/1200x450/?fashion,clothes" alt="Fashion Collection" />
+      <div class="slide-content">
+        <h1>Trendy Fashion for Every Season</h1>
+        <p>Find your style with new arrivals and exclusive offers on top brands.</p>
+        <button onclick="alert('Explore Fashion')">Shop Now</button>
+      </div>
+    </div>
+    <div class="slide" style="background:#4a1a1a">
+      <img src="https://source.unsplash.com/1200x450/?furniture,home" alt="Home Furniture" />
+      <div class="slide-content">
+        <h1>Make Your Home Cozy & Stylish</h1>
+        <p>Explore beautiful furniture and decor to refresh your living space.</p>
+        <button onclick="alert('Explore Furniture')">Shop Now</button>
+      </div>
+    </div>
+  </div>
+  <div class="slider-nav">
+    <button class="prev" aria-label="Previous Slide" id="prevBtn">&#10094;</button>
+    <button class="next" aria-label="Next Slide" id="nextBtn">&#10095;</button>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="categories" aria-label="Shop Categories">
+  <article class="category-card" tabindex="0" role="button" aria-pressed="false">
+    <img src="https://source.unsplash.com/400x160/?electronics" alt="Electronics Category" />
+    <h3>Electronics</h3>
+  </article>
+  <article class="category-card" tabindex="0" role="button" aria-pressed="false">
+    <img src="https://source.unsplash.com/400x160/?fashion" alt="Fashion Category" />
+    <h3>Fashion</h3>
+  </article>
+  <article class="category-card" tabindex="0" role="button" aria-pressed="false">
+    <img src="https://source.unsplash.com/400x160/?furniture" alt="Home & Furniture Category" />
+    <h3>Home & Furniture</h3>
+  </article>
+  <article class="category-card" tabindex="0" role="button" aria-pressed="false">
+    <img src="https://source.unsplash.com/400x160/?toys" alt="Toys & Games Category" />
+    <h3>Toys & Games</h3>
+  </article>
+  <article class="category-card" tabindex="0" role="button" aria-pressed="false">
+    <img src="https://source.unsplash.com/400x160/?books" alt="Books & Stationery Category" />
+    <h3>Books & Stationery</h3>
+  </article>
+  <article class="category-card" tabindex="0" role="button" aria-pressed="false">
+    <img src="https://source.unsplash.com/400x160/?sports" alt="Sports & Outdoors Category" />
+    <h3>Sports & Outdoors</h3>
+  </article>
+</section>
+
+<script>
+  // Hero slider JavaScript
+  const slides = document.getElementById('slides');
+  const totalSlides = slides.children.length;
+  let currentSlide = 0;
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateSlider();
+  });
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateSlider();
+  });
+
+  function updateSlider() {
+    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  // Auto slide every 6 seconds
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateSlider();
+  }, 6000);
+</script>
+
+<style>
+  /* Featured Products Grid */
+  .featured-products {
+    max-width: 1200px;
+    margin: 60px auto 40px;
+    padding: 0 20px;
+  }
+  .featured-products h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #121214;
+    text-align: center;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 25px;
+  }
+  .product-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.07);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+  }
+  .product-img-container {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+  }
+  .product-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #f4f4f4;
+  }
+  .product-info {
+    padding: 15px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-title {
+    font-weight: 600;
+    font-size: 17px;
+    margin-bottom: 8px;
+    color: #121214;
+    flex-grow: 1;
+  }
+  .product-price {
+    font-weight: 700;
+    font-size: 18px;
+    color: #ffcc00;
+    margin-bottom: 15px;
+  }
+  .product-btn {
+    background-color: #ffcc00;
+    border: none;
+    padding: 10px 0;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .product-btn:hover {
+    background-color: #e6b800;
+  }
+
+  /* Testimonials */
+  .testimonials {
+    max-width: 900px;
+    margin: 80px auto 60px;
+    text-align: center;
+    padding: 0 20px;
+  }
+  .testimonials h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 35px;
+    color: #121214;
+  }
+  .testimonial-slide {
+    display: none;
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px 40px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    position: relative;
+  }
+  .testimonial-slide.active {
+    display: block;
+  }
+  .testimonial-text {
+    font-style: italic;
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 25px;
+  }
+  .testimonial-author {
+    font-weight: 700;
+    font-size: 16px;
+    color: #121214;
+  }
+  .testimonial-nav {
+    margin-top: 20px;
+  }
+  .testimonial-nav button {
+    background-color: #ffcc00;
+    border: none;
+    padding: 10px 18px;
+    margin: 0 8px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+  }
+  .testimonial-nav button:hover {
+    background-color: #e6b800;
+  }
+
+  /* Newsletter */
+  .newsletter {
+    background-color: #121214;
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .newsletter h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .newsletter p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  .newsletter form {
+    display: flex;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .newsletter input[type="email"] {
+    padding: 15px 20px;
+    border-radius: 50px;
+    border: none;
+    font-size: 16px;
+    flex-grow: 1;
+    min-width: 250px;
+    outline: none;
+  }
+  .newsletter button {
+    background-color: #ffcc00;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+  }
+  .newsletter button:hover {
+    background-color: #e6b800;
+  }
+
+  /* Footer */
+  footer {
+    background-color: #1a1a2e;
+    color: #ddd;
+    padding: 40px 20px 25px;
+    text-align: center;
+  }
+  footer .footer-links {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    flex-wrap: wrap;
+  }
+  footer .footer-links a {
+    color: #ddd;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  footer .footer-links a:hover {
+    color: #ffcc00;
+  }
+  footer .social-icons {
+    margin-bottom: 25px;
+  }
+  footer .social-icons a {
+    margin: 0 12px;
+    color: #ddd;
+    font-size: 22px;
+    transition: color 0.3s ease;
+  }
+  footer .social-icons a:hover {
+    color: #ffcc00;
+  }
+  footer p {
+    font-size: 14px;
+    color: #999;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 600px) {
+    .slide-content h1 {
+      font-size: 28px;
+    }
+    .slide-content p {
+      font-size: 16px;
+    }
+    nav {
+      flex-basis: 100%;
+      justify-content: center;
+      margin-top: 15px;
+      gap: 18px;
+    }
+  }
+</style>
+
+<section class="featured-products" aria-label="Featured Products">
+  <h2>Featured Products</h2>
+  <div class="products-grid" role="list">
+    <!-- We'll generate 20 product cards with placeholder images -->
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?smartphone" alt="Smartphone XYZ" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Smartphone XYZ</h3>
+        <p class="product-price">$799</p>
+        <button class="product-btn" onclick="alert('Added Smartphone XYZ to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?headphones" alt="Noise-Cancelling Headphones" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Noise-Cancelling Headphones</h3>
+        <p class="product-price">$199</p>
+        <button class="product-btn" onclick="alert('Added Headphones to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?laptop" alt="Ultra-light Laptop Pro" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Ultra-light Laptop Pro</h3>
+        <p class="product-price">$1,299</p>
+        <button class="product-btn" onclick="alert('Added Laptop to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?watch" alt="Smartwatch Series 5" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Smartwatch Series 5</h3>
+        <p class="product-price">$399</p>
+        <button class="product-btn" onclick="alert('Added Smartwatch to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?shoes" alt="Running Shoes" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Running Shoes</h3>
+        <p class="product-price">$99</p>
+        <button class="product-btn" onclick="alert('Added Shoes to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <!-- Add more similar product cards to reach 20 -->
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?camera" alt="Digital Camera" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Digital Camera</h3>
+        <p class="product-price">$549</p>
+        <button class="product-btn" onclick="alert('Added Camera to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?backpack" alt="Travel Backpack" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Travel Backpack</h3>
+        <p class="product-price">$79</p>
+        <button class="product-btn" onclick="alert('Added Backpack to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?sofa" alt="Modern Sofa" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Modern Sofa</h3>
+        <p class="product-price">$899</p>
+        <button class="product-btn" onclick="alert('Added Sofa to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?book" alt="Bestseller Book" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Bestseller Book</h3>
+        <p class="product-price">$29</p>
+        <button class="product-btn" onclick="alert('Added Book to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?tablet" alt="Tablet X" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Tablet X</h3>
+        <p class="product-price">$599</p>
+        <button class="product-btn" onclick="alert('Added Tablet to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <!-- Repeat similar cards to reach 20 total -->
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?jewelry" alt="Elegant Necklace" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Elegant Necklace</h3>
+        <p class="product-price">$149</p>
+        <button class="product-btn" onclick="alert('Added Necklace to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?perfume" alt="Luxury Perfume" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Luxury Perfume</h3>
+        <p class="product-price">$99</p>
+        <button class="product-btn" onclick="alert('Added Perfume to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?headphones" alt="Wireless Earbuds" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Wireless Earbuds</h3>
+        <p class="product-price">$129</p>
+        <button class="product-btn" onclick="alert('Added Earbuds to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?gaming" alt="Gaming Console" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Gaming Console</h3>
+        <p class="product-price">$499</p>
+        <button class="product-btn" onclick="alert('Added Console to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?bike" alt="Mountain Bike" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Mountain Bike</h3>
+        <p class="product-price">$999</p>
+        <button class="product-btn" onclick="alert('Added Bike to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?watch" alt="Luxury Watch" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Luxury Watch</h3>
+        <p class="product-price">$1200</p>
+        <button class="product-btn" onclick="alert('Added Watch to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?lamp" alt="Desk Lamp" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Desk Lamp</h3>
+        <p class="product-price">$45</p>
+        <button class="product-btn" onclick="alert('Added Lamp to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?jacket" alt="Winter Jacket" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Winter Jacket</h3>
+        <p class="product-price">$149</p>
+        <button class="product-btn" onclick="alert('Added Jacket to cart')">Add to Cart</button>
+      </div>
+    </article>
+    <article class="product-card" role="listitem" tabindex="0">
+      <div class="product-img-container">
+        <img src="https://source.unsplash.com/400x300/?glasses" alt="Sunglasses" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">Sunglasses</h3>
+        <p class="product-price">$69</p>
+        <button class="product-btn" onclick="alert('Added Sunglasses to cart')">Add to Cart</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials" aria-label="Customer Testimonials">
+  <h2>What Our Customers Say</h2>
+  <div class="testimonial-slide active" role="group" aria-roledescription="slide" aria-label="Testimonial 1">
+    <p class="testimonial-text">"ShopNova transformed my shopping experience! The variety and prices are unbeatable."</p>
+    <p class="testimonial-author">- Emily R.</p>
+  </div>
+  <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial 2">
+    <p class="testimonial-text">"Fast shipping and excellent customer service. Highly recommend this site!"</p>
+    <p class="testimonial-author">- David M.</p>
+  </div>
+  <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial 3">
+    <p class="testimonial-text">"The product quality is outstanding. I keep coming back for more."</p>
+    <p class="testimonial-author">- Sarah W.</p>
+  </div>
+  <div class="testimonial-nav" role="navigation" aria-label="Testimonials Navigation">
+    <button id="prevTestimonial" aria-label="Previous Testimonial">&#10094;</button>
+    <button id="nextTestimonial" aria-label="Next Testimonial">&#10095;</button>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter" aria-label="Newsletter Signup">
+  <h2>Stay Updated!</h2>
+  <p>Subscribe to get exclusive deals and latest news.</p>
+  <form onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+    <input type="email" placeholder="Enter your email" required aria-label="Email address" />
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer aria-label="Footer">
+  <div class="footer-links">
+    <a href="#about">About Us</a>
+    <a href="#terms">Terms &amp; Conditions</a>
+    <a href="#privacy">Privacy Policy</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="social-icons">
+    <a href="#" aria-label="Facebook">&#xf09a;</a>
+    <a href="#" aria-label="Twitter">&#xf099;</a>
+    <a href="#" aria-label="Instagram">&#xf16d;</a>
+  </div>
+  <p>&copy; 2025 Shubham. All rights reserved.</p>
+</footer>
+
+<script>
+  // Testimonials slider functionality
+  const testimonials = document.querySelectorAll('.testimonial-slide');
+  let currentIndex = 0;
+
+  function showTestimonial(index) {
+    testimonials.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+  }
+
+  document.getElementById('prevTestimonial').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+    showTestimonial(currentIndex);
+  });
+
+  document.getElementById('nextTestimonial').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % testimonials.length;
+    showTestimonial(currentIndex);
+  });
+</script>
+</body>
+</html>
+

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML Practice Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+    header, nav, main, footer {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    nav ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    nav ul li {
+      display: inline-block;
+      margin-right: 15px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    nav ul li a:hover {
+      color: #007BFF;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    form label {
+      display: block;
+      margin-top: 10px;
+    }
+    form input, form textarea, form select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      box-sizing: border-box;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Welcome to My HTML Practice Page</h1>
+  <p>This page includes various HTML elements for practice purposes.</p>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section id="about">
+    <h2>About This Page</h2>
+    <p>This section describes what this practice page is about.</p>
+    <p>We use this page to practice HTML elements like headings, lists, tables, images, forms, and links.</p>
+  </section>
+
+  <section id="services">
+    <h2>Our Services</h2>
+    <ul>
+      <li>Web Design</li>
+      <li>SEO Optimization</li>
+      <li>Content Creation</li>
+      <li>Social Media Marketing</li>
+    </ul>
+
+    <h3>Pricing Table</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Basic</th>
+          <th>Premium</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Web Design</td>
+          <td>$500</td>
+          <td>$1200</td>
+          <td>$2500</td>
+        </tr>
+        <tr>
+          <td>SEO Optimization</td>
+          <td>$300</td>
+          <td>$700</td>
+          <td>$1500</td>
+        </tr>
+        <tr>
+          <td>Content Creation</td>
+          <td>$200</td>
+          <td>$600</td>
+          <td>$1000</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <figure>
+      <img src="https://via.placeholder.com/300x200" alt="Sample Image 1" />
+      <figcaption>Sample Image 1 - Beautiful Landscape</figcaption>
+    </figure>
+    <figure>
+      <img src="https://via.placeholder.com/300x200" alt="Sample Image 2" />
+      <figcaption>Sample Image 2 - City Skyline</figcaption>
+    </figure>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form action="#" method="post">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="fullname" placeholder="Your full name" required />
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" placeholder="example@example.com" required />
+
+      <label for="service">Service Interested In:</label>
+      <select id="service" name="service">
+        <option value="">-- Please choose --</option>
+        <option value="webdesign">Web Design</option>
+        <option value="seo">SEO Optimization</option>
+        <option value="content">Content Creation</option>
+        <option value="marketing">Social Media Marketing</option>
+      </select>
+
+      <label for="message">Your Message:</label>
+      <textarea id="message" name="message" rows="5" placeholder="Write your message here..."></textarea>
+
+      <input type="submit" value="Send Message" />
+    </form>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 My HTML Practice Site. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
