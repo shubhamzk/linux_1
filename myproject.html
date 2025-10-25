@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SK App 🚀</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Set Inter as default font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        /* Page transition animation */
+        .page-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .page-content.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card hover animation (lift effect) */
+        .card-lift {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            will-change: transform;
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+
+        .card-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 36px rgba(40, 50, 60, 0.18);
+        }
+
+        /* Pulsing dot for call-to-action */
+        .pulsing-dot {
+            position: relative;
+        }
+
+        .pulsing-dot::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ef4444; /* red-500 */
+            border-radius: 50%;
+            top: 50%;
+            left: -15px;
+            transform: translateY(-50%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+
+        /* Navigation link style */
+        .nav-link {
+            transition: color 0.3s, border-color 0.3s;
+            padding: 0.5rem 1rem;
+            display: block;
+            text-align: center;
+        }
+
+        .nav-link.active-nav {
+            border-bottom: 4px solid #3b82f6; /* blue-500 */
+            color: #1e40af; /* blue-800 */
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="flex flex-col">
+
+    <!-- Header / Navigation Bar -->
+    <header class="bg-white shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-24">
+                <div class="flex items-center">
+                    <span class="text-4xl font-extrabold text-gray-800 tracking-wide flex items-center">
+                        <span class="mr-3 text-blue-600">✨</span> SKApp
+                    </span>
+                </div>
+                <div class="hidden md:block">
+                    <div id="nav-links" class="ml-10 flex items-center space-x-4">
+                        <!-- Desktop Links -->
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-button" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmls="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden pb-4 px-2 pt-2 space-y-1 sm:px-3 border-t">
+            <!-- Mobile Links -->
+        </div> 
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow p-4 md:p-12">
+        <div class="max-w-7xl mx-auto">
+            <!-- Content will be injected here with transition classes -->
+            <div id="content-container" class="page-content active">
+                <h1 id="page-title" class="text-5xl font-extrabold text-gray-800 mb-10 border-b-4 border-blue-200 pb-4">Loading...</h1>
+                <!-- Loading Content Area -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white p-8 mt-16">
+        <div class="max-w-7xl mx-auto text-center text-sm">
+            <p> &copy; <span id="current-year"></span>SKApp Solutions. All SK-rights reserved. Built with simplicity and power 💪🏻.</p>
+            <div class="mt-4 space-x-6 text-lg">
+                <a href="https://www.linkedin.com/in/shubham-kumbhalwar-6b6667231/" class="hover:text-blue-400 transition duration-300">Linkedin 🔗</a>
+                <a href="#" class="hover:text-blue-400 transition duration-300">Instagram 📷</a>
+                <a href="https://github.com/shubhamzk" class="hover:text-blue-400 transition duration-300">GitHub 🐙</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        const navItems = [
+            { id: 'home', label: 'Home 🏠' },
+            { id: 'about', label: 'About 💡'},
+            { id: 'services', label: 'Services 🛠️'},
+            { id: 'contact', label: 'Contact 📞'}
+        ];
+
+        let currentPage = 'home';
+
+        const contentContainer = document.getElementById('content-container');
+        const pageTitleElement = document.getElementById('page-title');
+        const navLinksDesktop = document.getElementById('nav-links');
+        const navLinksMoblie = document.getElementById('mobile-menu');
+        const menuButton = document.getElementById('menu-button');
+
+        // --- Content Generation (Padded to increase line count) ---
+
+        // Function to generate a large number of repetitive cards for line padding
+        function generateFeatureCards(count, icon, title, text, color) {
+            let html = '';
+            for (let i = 1; i <= count; i++) {
+                html += `
+                   <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-${color}-500 card-lift">
+                      <span class="text-4xl block mb-3">${icon}</span>
+                      <h3 class="text-xl font-bold text-gray-900 mb-2">${title}  #${i}</h3>
+                      <p class="text-gray-600 text-sm">$ {text}</p>
+                    </div>
+                `; 
+            }
+            return html;
+        }
+
+        // Function to generate a long of team members for padding
+        function generateTeamMembers(count) {
+            let html = '';
+            const names = ["Manish", "Shubham", "Yogesh", "Nitesh", "Nishad", "Shishir", "Jasmine", "Nikhil", "Pankaj", "Rajesh"];
+            const title = ["Lead Engineer 💻", "Design Guru 🎨", "Marketing Wizard 📈", "Support Hero 🎧"];
+            for (let i = 1; i <= count; i++) {
+                const name = names[i % names.length] + ' ' + (Math.floor(Math.random() * 100) + 1);
+                const title = titles[i % titles.length];
+                html +=` 
+                   <div class="text-center p-4 bg-gray-50 rounded-xl shadow-md card-lift hover:bg-white">
+                      <img src="https://placehold.co/100x100/3b82f6/ffffff?text=U${i}" class="w-20 h-20 rounded-full mx-auto mb-3 border-4 border-blue-300" alt="Team Member ${i}">
+                      <h4 class="font-semibold text-gray-900">${name}</h4>
+                      <p class="text-sm text-blue-600">${title}</p>
+                      <p class="text-xs text-gray-500 mt-1">Joined: ${2020 + (i % 5)}</p>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        const pageContent = {
+            // PAGE 1: HOME/INDEX - Focus on Features and Call to Action
+            home: {
+                title: 'Welcome to the SK App Experience ! 🌟',
+                 html: `
+                      <div class="text-center py-16 bg-blue-50 rounded-2xl shadow-2xl mb-12">
+                         <h2 class="text-5xl font-extrabold text-gray-900 mb-4">Unleash Your Potential 🚀</h2>
+                         <p class="text-xl text-gay-700 mb-8 max-w-4x1 mx-auto">
+                            Experience the convergence of simplicity and power in a fully dynamic, single-file web appliction. We deliver speed, design, and function in one package.
+                         </p>
+                         <button onclick="renderPage('services')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-full shadow-xl transition duration-300 transform hover:scale-105 inline-flex items-center">
+                            Explore Our Solutions ➡️
+                          <button>
+                        </div>
+                        
+                        <h3 class="text-3xl font-bold text-gray-800 mb-6 mt-12 text-center">Core Pillars of Our Platform 🧱</h3>
+                        <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-6">
+                            ${generateFeatureCards (
+                                20, // 20 Cards for padding
+                                '💡',
+                                'Innovative Solution',
+                                'Each module is designed with future-proofing in mind, guaranteeing long-term viability and performance.',
+                                'indigo'
+                            )}
+                            ${generateFeatureCards (
+                                20, // 20 Cards for padding
+                                '🛡️',
+                                'Maximum Security',
+                                'We priritize data integrity and user privacy with robust, mock security protocols.',
+                                'green'
+                            )}
+                            ${generateFeatureCards (
+                                20, // 20 Cards for padding
+                                '⚙️',
+                                'Flawless Efficiency',
+                                'Optimized code ensures lightning-fast execution and minimal resource consumption.',
+                                'yellow'
+                            )}
+                            ${generateFeatureCards (
+                                20, // 20 Cards for padding
+                                '🎨',
+                                'Stunning Design',
+                                'Aesthetics matter. Our interface is intuitively crafted for superior user experience.',
+                                'pink'
+                            )}
+                        </div>
+                        
+                        <div class="mt-12 text-center">
+                            <a href="#" onclick="renderPage('about')" class="text-blue-600 hover:text-blue-800 font-semibold transition duration-300 flex items-center justify-center text-lg">
+                                Learn more about our vision <span class="ml-2">➡️</span>
+                            </a>
+                        </div>
+                    `            
+            },
+
+            // PAGE 2: About US - Focus on Team, History, and Values
+            about: {
+                title: 'Our Journey and Vision for Tomorrow 🔭',
+                 html:`
+                       <div class="bg-white p-8 rounded-2xl shadow-2xl mb-12">
+                           <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-3">The SKApp Story 📃</h2>
+                           <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                               Founded on the principle that powerful web tool should be accessible and fast, SKApp behan as a simple idea in 2024. Since then, we've grown into a mock global leader in single-file application architecture. We believe in transparency, continuous learning, and delivering immense value through elegant code structures. Our commitment is to simplify the complex and make technology work for you.
+                            </p>
+                            <div class="grid md:grid-cols-3 gap-8 text-center mt-8">
+                                <div class="p-6 bg-green-50 rounded-xl card-lift">
+                                    <span class="text-5xl block mb-2">📈</span>
+                                    <p class="text-4xl font-extrabold text-green-600">5+ years</p>
+                                    <p class="text-gray-600">In Business</p>
+                                </div>
+                                <div class="p-6 bg-yellow-50 rounded-xl card-lift">
+                                    <span class="text-5xl block mb-2">☺️</span>
+                                    <p class="text-4xl font-extrabold text-yellow-600">99%</p>
+                                    <p class="text-gray-600">Client Satisfaction</p>
+                                </div>
+                                <div class="p-6 bg-red-50 rounded-xl card-lift">
+                                    <span class="text-5xl block mb-2">💻</span>
+                                    <p class="text-4xl font-extrabold text-red-600">100k+</p>
+                                    <p class="text-gray-600">Lines of Code Written</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-3xl font-bold text-gray-800 mb-6 mt-12 text-center">Meet the Amazing Team! 🤝🏻</h3>
+                        <div class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-6">
+                            ${generateTeamMembers (60)} <!-- 60 team members for padding -->
+                        </div>
+                        
+                        <div class="bg-blue-100 p-8 rounded-2xl shadow-inner mt-12">
+                            <h3 class="text-3xl font-bold text-blue-800 mb-4 flex items-center">
+                                Our Core Philosophies  🧐
+                            </h3>
+                            <ul class="list-disc list-inside text-lg text-blue-800 space-y-3 pl-5">
+                                <li><span class="font-semibold">Simplicity First:</span> We believe that clean code leads to great products.</li>
+                                <li><span class="font-semibold">User Centricity:</span> Every feature is designed around the end-user's nedds.</li>
+                                <li><span class="font-semibold">Continuous Improvement:</span> Always iterating, always learning.</li>
+                                <li><span class="font-semibold">One File Wonder:</span> Proving that everything important can fit in one place!</li>
+                            </ul>
+                        </div>
+                    `                
+            },
+            
+            // PAGE 3: SERVICES - Focus on detailed offerings and pricing
+            services: {
+                title: 'Comprehesive Service Catalog 🛠️'
+                html: `
+                    <div class="bg-white p-8 rounded-2xl shadow-2xl mb-12">
+                        <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">Pricing Tiers and Solutions</h2>
+
+                        <div class="grid lg:grid-cols-3 gap-8">
+                            <!-- Tier 1 -->
+                            <div class="bg-gray-50 p-8 rounded-xl shadow-xl border-t-8 border-gray-400 card-lift">
+                                <h4 class="text-2xl font-bold text-gray-800 mb-2">Basic Starter 🍵</h4>
+                                <p class="text-5xl font-extrabold text-gray-900 mb-6">$49<span class="text-xl font-medium text-gray-500">/mo</span></p>
+                                <ul class="space-y-3 text-gray-700 mb-8">
+                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> 1,000 API Calls (Mock)</li>
+                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Standard Support</li>
+                                    <li class="flex items-center"><span class="text-red-500 mr-2">❌</span> Real-time Data Sync</li>
+                                </ul>
+                                <button onclick="renderPage('contact')" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 rounded-full transition duration-300">
+                                    Choose Basic
+                                </button>
+                            </div>            
+            }
+        }
+    </script>
+    
+</body>
+</html>
