@@ -16,6 +16,7 @@
             min-height: 100vh;
         }
 
+
         /* Page transition animation */
         .page-content {
             opacity: 0;
@@ -23,10 +24,12 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
+
         .page-content.active {
             opacity: 1;
             transform: translateY(0);
         }
+
 
         /* Card hover animation (lift effect) */
         .card-lift {
@@ -35,15 +38,18 @@
             border-radius: 0.75rem; /* rounded-xl */
         }
 
+
         .card-lift:hover {
             transform: translateY(-8px);
             box-shadow: 0 18px 36px rgba(40, 50, 60, 0.18);
         }
 
+
         /* Pulsing dot for call-to-action */
         .pulsing-dot {
             position: relative;
         }
+
 
         .pulsing-dot::before {
             content: '';
@@ -58,17 +64,19 @@
             animation: pulse 2s infinite;
         }
 
+
         @keyframes pulse {
             0% {
                 box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
             }
             70% {
-                box-shadow: 0 0 0 0 10px rgba(239, 68, 68, 0);
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
             }
             100% {
                 box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
             }
         }
+
 
         /* Navigation link style */
         .nav-link {
@@ -78,6 +86,7 @@
             text-align: center;
         }
 
+
         .nav-link.active-nav {
             border-bottom: 4px solid #3b82f6; /* blue-500 */
             color: #1e40af; /* blue-800 */
@@ -86,6 +95,7 @@
     </style>
 </head>
 <body class="flex flex-col">
+
 
     <!-- Header / Navigation Bar -->
     <header class="bg-white shadow-xl sticky top-0 z-50">
@@ -103,7 +113,7 @@
                 </div>
                 <div class="md:hidden">
                     <button id="menu-button" class="text-gray-600 hover:text-gray-800 focus:outline-none">
-                        <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmls="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                        <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                     </button>
                 </div>
             </div>
@@ -111,8 +121,9 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="md:hidden hidden pb-4 px-2 pt-2 space-y-1 sm:px-3 border-t">
             <!-- Mobile Links -->
-        </div> 
+        </div>
     </header>
+
 
     <!-- Main Content Area -->
     <main class="flex-grow p-4 md:p-12">
@@ -125,185 +136,201 @@
         </div>
     </main>
 
+
     <!-- Footer -->
     <footer class="bg-gray-900 text-white p-8 mt-16">
         <div class="max-w-7xl mx-auto text-center text-sm">
-            <p> &copy; <span id="current-year"></span>SKApp Solutions. All SK-rights reserved. Built with simplicity and power 💪🏻.</p>
+            <p>&copy; <span id="current-year"></span> SKApp Solutions. All SK-rights reserved. Built with simplicity and power 💪🏻.</p>
             <div class="mt-4 space-x-6 text-lg">
                 <a href="https://www.linkedin.com/in/shubham-kumbhalwar-6b6667231/" class="hover:text-blue-400 transition duration-300">Linkedin 🔗</a>
-                <a href="#" class="hover:text-blue-400 transition duration-300">Instagram 📷</a>
+                <a href="#" class="hover:text-blue-400 transition duration-300">Instagram 📸</a>
                 <a href="https://github.com/shubhamzk" class="hover:text-blue-400 transition duration-300">GitHub 🐙</a>
             </div>
         </div>
     </footer>
 
 
+
+
     <script>
         const navItems = [
             { id: 'home', label: 'Home 🏠' },
-            { id: 'about', label: 'About 💡'},
-            { id: 'services', label: 'Services 🛠️'},
-            { id: 'contact', label: 'Contact 📞'}
+            { id: 'about', label: 'About Us 💡' },
+            { id: 'services', label: 'Services 🛠️' },
+            { id: 'contact', label: 'Contact 📞' }
         ];
 
+
         let currentPage = 'home';
+
 
         const contentContainer = document.getElementById('content-container');
         const pageTitleElement = document.getElementById('page-title');
         const navLinksDesktop = document.getElementById('nav-links');
-        const navLinksMoblie = document.getElementById('mobile-menu');
+        const navLinksMobile = document.getElementById('mobile-menu');
         const menuButton = document.getElementById('menu-button');
 
+
         // --- Content Generation (Padded to increase line count) ---
+
 
         // Function to generate a large number of repetitive cards for line padding
         function generateFeatureCards(count, icon, title, text, color) {
             let html = '';
             for (let i = 1; i <= count; i++) {
                 html += `
-                   <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-${color}-500 card-lift">
-                      <span class="text-4xl block mb-3">${icon}</span>
-                      <h3 class="text-xl font-bold text-gray-900 mb-2">${title}  #${i}</h3>
-                      <p class="text-gray-600 text-sm">$ {text}</p>
-                    </div>
-                `; 
-            }
-            return html;
-        }
-
-        // Function to generate a long of team members for padding
-        function generateTeamMembers(count) {
-            let html = '';
-            const names = ["Manish", "Shubham", "Yogesh", "Nitesh", "Nishad", "Shishir", "Jasmine", "Nikhil", "Pankaj", "Rajesh"];
-            const title = ["Lead Engineer 💻", "Design Guru 🎨", "Marketing Wizard 📈", "Support Hero 🎧"];
-            for (let i = 1; i <= count; i++) {
-                const name = names[i % names.length] + ' ' + (Math.floor(Math.random() * 100) + 1);
-                const title = titles[i % titles.length];
-                html +=` 
-                   <div class="text-center p-4 bg-gray-50 rounded-xl shadow-md card-lift hover:bg-white">
-                      <img src="https://placehold.co/100x100/3b82f6/ffffff?text=U${i}" class="w-20 h-20 rounded-full mx-auto mb-3 border-4 border-blue-300" alt="Team Member ${i}">
-                      <h4 class="font-semibold text-gray-900">${name}</h4>
-                      <p class="text-sm text-blue-600">${title}</p>
-                      <p class="text-xs text-gray-500 mt-1">Joined: ${2020 + (i % 5)}</p>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-${color}-500 card-lift">
+                        <span class="text-4xl block mb-3">${icon}</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">${title} #${i}</h3>
+                        <p class="text-gray-600 text-sm">${text}</p>
                     </div>
                 `;
             }
             return html;
         }
 
+
+        // Function to generate a long list of team members for padding
+        function generateTeamMembers(count) {
+            let html = '';
+            const names = ["Manish", "Shubham", "Yogesh", "Nitesh", "Nishad", "Shishir", "Jasmine", "Nikhil", "Pankaj", "Rajesh"];
+            const titles = ["Lead Engineer 💻", "Design Guru 🎨", "Marketing Wizard 📈", "Support Hero 🎧"];
+            for (let i = 1; i <= count; i++) {
+                const name = names[i % names.length] + ' ' + (Math.floor(Math.random() * 100) + 1);
+                const title = titles[i % titles.length];
+                html += `
+                    <div class="text-center p-4 bg-gray-50 rounded-xl shadow-md card-lift hover:bg-white">
+                        <img src="https://placehold.co/100x100/3b82f6/ffffff?text=U${i}" class="w-20 h-20 rounded-full mx-auto mb-3 border-4 border-blue-300" alt="Team Member ${i}">
+                        <h4 class="font-semibold text-gray-900">${name}</h4>
+                        <p class="text-sm text-blue-600">${title}</p>
+                        <p class="text-xs text-gray-500 mt-1">Joined: ${2020 + (i % 5)}</p>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+
         const pageContent = {
             // PAGE 1: HOME/INDEX - Focus on Features and Call to Action
             home: {
-                title: 'Welcome to the SK App Experience ! 🌟',
-                 html: `
-                      <div class="text-center py-16 bg-blue-50 rounded-2xl shadow-2xl mb-12">
-                         <h2 class="text-5xl font-extrabold text-gray-900 mb-4">Unleash Your Potential 🚀</h2>
-                         <p class="text-xl text-gay-700 mb-8 max-w-4x1 mx-auto">
-                            Experience the convergence of simplicity and power in a fully dynamic, single-file web appliction. We deliver speed, design, and function in one package.
-                         </p>
-                         <button onclick="renderPage('services')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-full shadow-xl transition duration-300 transform hover:scale-105 inline-flex items-center">
+                title: 'Welcome to the SK App Experience! 🌟',
+                html: `
+                    <div class="text-center py-16 bg-blue-50 rounded-2xl shadow-2xl mb-12">
+                        <h2 class="text-5xl font-extrabold text-gray-900 mb-4">Unleash Your Potential 🚀</h2>
+                        <p class="text-xl text-gray-700 mb-8 max-w-4xl mx-auto">
+                            Experience the convergence of simplicity and power in a fully dynamic, single-file web application. We deliver speed, design, and function in one package.
+                        </p>
+                        <button onclick="renderPage('services')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-full shadow-xl transition duration-300 transform hover:scale-105 inline-flex items-center">
                             Explore Our Solutions ➡️
-                          <button>
-                        </div>
-                        
-                        <h3 class="text-3xl font-bold text-gray-800 mb-6 mt-12 text-center">Core Pillars of Our Platform 🧱</h3>
-                        <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-6">
-                            ${generateFeatureCards (
-                                20, // 20 Cards for padding
-                                '💡',
-                                'Innovative Solution',
-                                'Each module is designed with future-proofing in mind, guaranteeing long-term viability and performance.',
-                                'indigo'
-                            )}
-                            ${generateFeatureCards (
-                                20, // 20 Cards for padding
-                                '🛡️',
-                                'Maximum Security',
-                                'We priritize data integrity and user privacy with robust, mock security protocols.',
-                                'green'
-                            )}
-                            ${generateFeatureCards (
-                                20, // 20 Cards for padding
-                                '⚙️',
-                                'Flawless Efficiency',
-                                'Optimized code ensures lightning-fast execution and minimal resource consumption.',
-                                'yellow'
-                            )}
-                            ${generateFeatureCards (
-                                20, // 20 Cards for padding
-                                '🎨',
-                                'Stunning Design',
-                                'Aesthetics matter. Our interface is intuitively crafted for superior user experience.',
-                                'pink'
-                            )}
-                        </div>
-                        
-                        <div class="mt-12 text-center">
-                            <a href="#" onclick="renderPage('about')" class="text-blue-600 hover:text-blue-800 font-semibold transition duration-300 flex items-center justify-center text-lg">
-                                Learn more about our vision <span class="ml-2">➡️</span>
-                            </a>
-                        </div>
-                    `            
+                        </button>
+                    </div>
+
+
+                    <h3 class="text-3xl font-bold text-gray-800 mb-6 mt-12 text-center">Core Pillars of Our Platform 🧱</h3>
+                    <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-6">
+                        ${generateFeatureCards(
+                            20, // 20 Cards for padding
+                            '💡',
+                            'Innovative Solution',
+                            'Each module is designed with future-proofing in mind, guaranteeing long-term viability and performance.',
+                            'indigo'
+                        )}
+                        ${generateFeatureCards(
+                            20, // 20 Cards for padding
+                            '🛡️',
+                            'Maximum Security',
+                            'We prioritize data integrity and user privacy with robust, mock security protocols.',
+                            'green'
+                        )}
+                        ${generateFeatureCards(
+                            20, // 20 Cards for padding
+                            '⚙️',
+                            'Flawless Efficiency',
+                            'Optimized code ensures lightning-fast execution and minimal resource consumption.',
+                            'yellow'
+                        )}
+                        ${generateFeatureCards(
+                            20, // 20 Cards for padding
+                            '🎨',
+                            'Stunning Design',
+                            'Aesthetics matter. Our interface is intuitively crafted for superior user experience.',
+                            'pink'
+                        )}
+                    </div>
+
+
+                    <div class="mt-12 text-center">
+                        <a href="#" onclick="renderPage('about')" class="text-blue-600 hover:text-blue-800 font-semibold transition duration-300 flex items-center justify-center text-lg">
+                            Learn more about our vision <span class="ml-2">➡️</span>
+                        </a>
+                    </div>
+                `
             },
 
-            // PAGE 2: About US - Focus on Team, History, and Values
+
+            // PAGE 2: ABOUT US - Focus on Team, History, and Values
             about: {
                 title: 'Our Journey and Vision for Tomorrow 🔭',
-                 html:`
-                       <div class="bg-white p-8 rounded-2xl shadow-2xl mb-12">
-                           <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-3">The SKApp Story 📃</h2>
-                           <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                               Founded on the principle that powerful web tool should be accessible and fast, SKApp behan as a simple idea in 2024. Since then, we've grown into a mock global leader in single-file application architecture. We believe in transparency, continuous learning, and delivering immense value through elegant code structures. Our commitment is to simplify the complex and make technology work for you.
-                            </p>
-                            <div class="grid md:grid-cols-3 gap-8 text-center mt-8">
-                                <div class="p-6 bg-green-50 rounded-xl card-lift">
-                                    <span class="text-5xl block mb-2">📈</span>
-                                    <p class="text-4xl font-extrabold text-green-600">5+ years</p>
-                                    <p class="text-gray-600">In Business</p>
-                                </div>
-                                <div class="p-6 bg-yellow-50 rounded-xl card-lift">
-                                    <span class="text-5xl block mb-2">☺️</span>
-                                    <p class="text-4xl font-extrabold text-yellow-600">99%</p>
-                                    <p class="text-gray-600">Client Satisfaction</p>
-                                </div>
-                                <div class="p-6 bg-red-50 rounded-xl card-lift">
-                                    <span class="text-5xl block mb-2">💻</span>
-                                    <p class="text-4xl font-extrabold text-red-600">100k+</p>
-                                    <p class="text-gray-600">Lines of Code Written</p>
-                                </div>
+                html: `
+                    <div class="bg-white p-8 rounded-2xl shadow-2xl mb-12">
+                        <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b pb-3">The SKApp Story 📜</h2>
+                        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                            Founded on the principle that powerful web tools should be accessible and fast, MegaApp began as a simple idea in 2020. Since then, we've grown into a mock global leader in single-file application architecture. We believe in transparency, continuous learning, and delivering immense value through elegant code structures. Our commitment is to simplify the complex and make technology work for you.
+                        </p>
+                        <div class="grid md:grid-cols-3 gap-8 text-center mt-8">
+                            <div class="p-6 bg-green-50 rounded-xl card-lift">
+                                <span class="text-5xl block mb-2">📈</span>
+                                <p class="text-4xl font-extrabold text-green-600">5+ years</p>
+                                <p class="text-gray-600">In Business</p>
+                            </div>
+                            <div class="p-6 bg-yellow-50 rounded-xl card-lift">
+                                <span class="text-5xl block mb-2">😊</span>
+                                <p class="text-4xl font-extrabold text-yellow-600">99%</p>
+                                <p class="text-gray-600">Client Satisfaction</p>
+                            </div>
+                            <div class="p-6 bg-red-50 rounded-xl card-lift">
+                                <span class="text-5xl block mb-2">💻</span>
+                                <p class="text-4xl font-extrabold text-red-600">100k+</p>
+                                <p class="text-gray-600">Lines of Code Written</p>
                             </div>
                         </div>
-                        
-                        <h3 class="text-3xl font-bold text-gray-800 mb-6 mt-12 text-center">Meet the Amazing Team! 🤝🏻</h3>
-                        <div class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-6">
-                            ${generateTeamMembers (60)} <!-- 60 team members for padding -->
-                        </div>
-                        
-                        <div class="bg-blue-100 p-8 rounded-2xl shadow-inner mt-12">
-                            <h3 class="text-3xl font-bold text-blue-800 mb-4 flex items-center">
-                                Our Core Philosophies  🧐
-                            </h3>
-                            <ul class="list-disc list-inside text-lg text-blue-800 space-y-3 pl-5">
-                                <li><span class="font-semibold">Simplicity First:</span> We believe that clean code leads to great products.</li>
-                                <li><span class="font-semibold">User Centricity:</span> Every feature is designed around the end-user's nedds.</li>
-                                <li><span class="font-semibold">Continuous Improvement:</span> Always iterating, always learning.</li>
-                                <li><span class="font-semibold">One File Wonder:</span> Proving that everything important can fit in one place!</li>
-                            </ul>
-                        </div>
-                    `                
+                    </div>
+
+
+                    <h3 class="text-3xl font-bold text-gray-800 mb-6 mt-12 text-center">Meet the Amazing Team! 🤝</h3>
+                    <div class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-6">
+                        ${generateTeamMembers(60)} <!-- 60 team members for padding -->
+                    </div>
+
+
+                    <div class="bg-blue-100 p-8 rounded-2xl shadow-inner mt-12">
+                        <h3 class="text-3xl font-bold text-blue-800 mb-4 flex items-center">
+                            Our Core Philosophies 🧐
+                        </h3>
+                        <ul class="list-disc list-inside text-lg text-blue-800 space-y-3 pl-5">
+                            <li><span class="font-semibold">Simplicity First:</span> We believe that clean code leads to great products.</li>
+                            <li><span class="font-semibold">User Centricity:</span> Every feature is designed around the end-user's needs.</li>
+                            <li><span class="font-semibold">Continuous Improvement:</span> Always iterating, always learning.</li>
+                            <li><span class="font-semibold">One File Wonder:</span> Proving that everything important can fit in one place!</li>
+                        </ul>
+                    </div>
+                `
             },
-            
+
+
             // PAGE 3: SERVICES - Focus on detailed offerings and pricing
             services: {
-                title: 'Comprehesive Service Catalog 🛠️',
-                 html: `
-                     <div class="bg-white p-8 rounded-2xl shadow-2xl mb-12">
+                title: 'Comprehensive Service Catalog 🛠️',
+                html: `
+                    <div class="bg-white p-8 rounded-2xl shadow-2xl mb-12">
                         <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">Pricing Tiers and Solutions</h2>
+
 
                         <div class="grid lg:grid-cols-3 gap-8">
                             <!-- Tier 1 -->
                             <div class="bg-gray-50 p-8 rounded-xl shadow-xl border-t-8 border-gray-400 card-lift">
-                                <h4 class="text-2xl font-bold text-gray-800 mb-2">Basic Starter 🍵</h4>
+                                <h4 class="text-2xl font-bold text-gray-800 mb-2">Basic Starter ☕</h4>
                                 <p class="text-5xl font-extrabold text-gray-900 mb-6">$49<span class="text-xl font-medium text-gray-500">/mo</span></p>
                                 <ul class="space-y-3 text-gray-700 mb-8">
                                     <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> 1,000 API Calls (Mock)</li>
@@ -316,103 +343,108 @@
                             </div>
                             <!-- Tier 2 - Recommended -->
                             <div class="bg-white p-8 rounded-xl shadow-2xl border-t-8 border-blue-600 transform scale-105 card-lift">
-                                <div class="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded-full inline-block mb-3"> RECOMMENDED ⭐ </div>
-                                <h4 class="text-3xl font-bold text-blue-800 mb-2"> Pro Powerhouse ⚡</h4>
+                                <div class="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded-full inline-block mb-3">RECOMMENDED ⭐</div>
+                                <h4 class="text-3xl font-bold text-blue-800 mb-2">Pro Powerhouse ⚡</h4>
                                 <p class="text-6xl font-extrabold text-gray-900 mb-6">$199<span class="text-xl font-medium text-gray-500">/mo</span></p>
                                 <ul class="space-y-3 text-gray-700 mb-8">
-                                     <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> Unlimited API Calls (Mock)</li>
-                                     <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> Priority 24/7 Support</li>
-                                     <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> Real-time Data Sync</li>
+                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Unlimited API Calls (Mock)</li>
+                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Priority 24/7 Support</li>
+                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Real-time Data Sync</li>
                                 </ul>
                                 <button onclick="renderPage('contact')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-full transition duration-300 shadow-lg">
-                                         Go Pro Today!
+                                    Go Pro Today!
                                 </button>
+                            </div>
+                            <!-- Tier 3 -->
+                            <div class="bg-gray-50 p-8 rounded-xl shadow-xl border-t-8 border-yellow-500 card-lift">
+                                <h4 class="text-2xl font-bold text-gray-800 mb-2">Enterprise Custom 👑</h4>
+                                <p class="text-5xl font-extrabold text-gray-900 mb-6">Custom<span class="text-xl font-medium text-gray-500">/quote</span></p>
+                                <ul class="space-y-3 text-gray-700 mb-8">
+                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Dedicated Infrastructure</li>
+                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> Account Manager</li>
+                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span> On-site Training</li>
+                                </ul>
+                                <button onclick="renderPage('contact')" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-full transition duration-300">
+                                    Request Quote
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <! -- Tier 3 -->
-                    <div class="bg-gray-50p-8 rounded-xl shadow-xl border-t-8 border-yellow-500 card-lift">
-                       <h4 class="text-2xl font-extrabold text-gray-800 mb-2">Experience Custom 👑</h4>
-                       <p class="text-5xl font-extrabold text-gray-900 mb-6">Custom<span class="text-xl font-medium text-gray-500">/quote</span></p>
-                       <ul class="space-y-3 text-gray-700 mb-8">
-                           <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> Dedicated Infrastucture</li>
-                           <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> Account Manager</li>
-                           <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> On-site Training</li>
-                        </ul>
-                        <button onclick="renderPage('contact')" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-full transition duration-300">
-                            Requset Quote
-                        </button>
-                    </div>
-                  </div>
-                </div>
 
-                <h3 class="text-3xl font-bold text-gray-800 mb-6 mt-12 text-center">Detailed Service Modules 🧩</h3>
-                <div class="space-y-4">
-                   $ {generateFeatureCards (
-                      100, // 100 small cards for padding
-                       '➕',
-                       'Module Integration',
-                       'A key component of our service catalog, ensuring seamless connectivity and modular design.',
-                       'indigo'
-                    ) .replace (/grid md:grid-cols-4 sm:grid-cols-2 gap-6/g, 'flex flex-wrap gap-4')}
-                </div>
-              `   
+
+                    <h3 class="text-3xl font-bold text-gray-800 mb-6 mt-12 text-center">Detailed Service Modules 🧩</h3>
+                    <div class="space-y-4">
+                        ${generateFeatureCards(
+                            100, // 100 small cards for padding
+                            '➕',
+                            'Module Integration',
+                            'A key component of our service catalog, ensuring seamless connectivity and modular design.',
+                            'indigo'
+                        ).replace(/grid md:grid-cols-4 sm:grid-cols-2 gap-6/g, 'flex flex-wrap gap-4')}
+                    </div>
+                `
             },
 
+
             // PAGE 4: CONTACT - Focus on Form, Location, and Socials
-            content: {
-                title: 'Contact With Our Global Team 📖',
-                 html: `
+            contact: {
+                title: 'Connect With Our Global Team 🗺️',
+                html: `
                     <div class="grid lg:grid-cols-2 gap-12">
                         <!-- Contact Form -->
                         <div class="bg-white p-8 rounded-2xl shadow-2xl">
-                          <h2 class="text-3xl font-boldtext-blue-600 mb-6 flex items-center pulsing-dot">
-                              <span>Send Us a Message</span>
-                          </h2>
-                          <form id="contactForm" onsubmit="handleFormSubmit (event)" class="space-y-4">
-                             <div>
-                                  <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                                  <input type="text" id="name" name="name" required class="mt-1" block w-full reounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                            <h2 class="text-3xl font-bold text-blue-600 mb-6 flex items-center pulsing-dot">
+                                <span>Send Us a Message</span>
+                            </h2>
+                            <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                    <input type="text" id="name" name="name" required class="mt-1 block w-full rounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
                                 </div>
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                                    <input type="email" id="email" name="name" required class="mt-1 block w-full reounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                                    <input type="email" id="email" name="email" required class="mt-1 block w-full rounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
                                 </div>
                                 <div>
-                                     <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
-                                     <input type="text" id="subject" name="subject" required class="mt-1 block w-full reounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                                    <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                                    <input type="text" id="subject" name="subject" required class="mt-1 block w-full rounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
                                 </div>
                                 <div>
-                                     <label for="message" class="block text-sm font-medium text-gray-700">Your Inquiry</label>
-                                     <textarea id="message" name="message" rows="5" required class="mt-1 block w-full reounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm"></textarea>
+                                    <label for="message" class="block text-sm font-medium text-gray-700">Your Inquiry</label>
+                                    <textarea id="message" name="message" rows="5" required class="mt-1 block w-full rounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm"></textarea>
                                 </div>
-                                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent-lg reounded-lg shadow-md text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+                                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
                                     Submit Request 📧
-                                 </button>
+                                </button>
                             </form>
 
-                            <div id-="messageBox" class="mt-6 p-4 reounded-lg hidden transition duration-300">
+
+                            <div id="messageBox" class="mt-6 p-4 rounded-lg hidden transition duration-300">
                                 <p id="messageText" class="font-medium flex items-center"></p>
                             </div>
                         </div>
 
+
                         <!-- Info and Location -->
                         <div class="space-y-8">
                             <div class="bg-gray-100 p-8 rounded-2xl shadow-inner card-lift">
-                               <h3 class="text-3xl font-bold text-gray-800 mb-4 flex items-center"><span class="mr-3"> 📍</span> Our Headquarters</h3>
-                               <p class="text-gray-700 mb-2"> 1624 SKApp Tower, Integration drive,</p>
-                               <p class="ttext-gray-700 mb-4">Orange City, Nagpur 441601, Earth</p>
-                               <p class="text-blue-600 font-semibold flex items-center"><span class="mr-2">📞</span> +91 8888888888</p>
-                               <p class="text-blue-600 font-semibold flex items-center"><span class="mr-2">📧</span> helpdesk@skapp.com</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mb-4 flex items-center"><span class="mr-3">📍</span> Our Headquarters</h3>
+                                <p class="text-gray-700 mb-2">1624 SKApp Tower, Integration drive,</p>
+                                <p class="text-gray-700 mb-4">Orange City, Nagpur 441601, M.H.</p>
+                                <p class="text-blue-600 font-semibold flex items-center"><span class="mr-2">📞</span> +91 8888888888</p>
+                                <p class="text-blue-600 font-semibold flex items-center"><span class="mr-2">📧</span> helpdesk@skapp.com</p>
                             </div>
-                            
+
+
                             <div class="bg-gray-100 p-8 rounded-2xl shadow-inner card-lift">
                                 <h3 class="text-3xl font-bold text-gray-800 mb-4 flex items-center"><span class="mr-3">⏰</span> Business Hours</h3>
                                 <ul class="space-y-2 text-gray-700">
-                                      <li>Monday - Friday: 09:00 AM - 06:00 PM</li>
-                                      <li>Saturday: 10:00 AM - 4:00 PM</li>
-                                      <li>Sunday: Closed 😴 </li>
+                                    <li>Monday - Friday: 9:00 AM - 6:00 PM</li>
+                                    <li>Saturday: 10:00 AM - 4:00 PM</li>
+                                    <li>Sunday: Closed 😴</li>
                                 </ul>
                             </div>
-
+                            
                             <h3 class="text-3xl font-bold text-gray-800 mt-12 mb-6 flex items-center"><span class="mr-3">🔗</span> Find Us Online</h3>
                             <div class="flex space-x-6">
                                 <a href="#" class="text-4xl hover:text-blue-500 transition duration-300">🐦</a>
@@ -422,65 +454,167 @@
                             </div>
                         </div>
                     </div>
-                `                                                  
+                `
             }
         };
 
+
         // --- JavaScript Logic for Routing and Interaction ---
+
 
         function renderPage(pageId) {
             const page = pageContent[pageId];
             if (!page) return;
 
+
             if (pageId === currentPage) {
                 // If already on the page, just scroll to top
-                window.scrollTo ({ top: 0, behavior: 'smooth'});
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 return;
             }
+
 
             // 1. Start transition animation out
             contentContainer.classList.remove('active');
             pageTitleElement.style.opacity = 0; // Fade out the title immediately
 
-            setTimeout ( () => {
+
+            setTimeout(() => {
                 // 2. Update Content
-                document.title = `${page.title} | SKApp`;
+                document.title = `${page.title} | Mega Dynamic App`;
+
 
                 // Set the title first
                 pageTitleElement.innerHTML = page.title;
                 pageTitleElement.style.opacity = 1;
 
-                // Create a temorary container for the new content body
+
+                // Create a temporary container for the new content body
                 const newContentBody = document.createElement('div');
                 newContentBody.innerHTML = page.html;
 
+
                 // Replace content body (keeping the H1 title)
-                // We clear everything except the first child (which is the H! title)
-                while (contentContainer.children.length> 1) {
+                // We clear everything except the first child (which is the H1 title)
+                while (contentContainer.children.length > 1) {
                     contentContainer.removeChild(contentContainer.lastChild);
                 }
-
+                
                 contentContainer.appendChild(newContentBody);
+
+
 
 
                 // 3. Update active nav state
                 updateNavLinks(pageId);
 
+
                 // 4. Start transition animation in
-                setTimeout ( () => {
+                setTimeout(() => {
                     contentContainer.classList.add('active');
-                    window.scrollTo({ top: 0, behavior: 'smooth'});
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                     currentPage = pageId;
                 }, 10); // Small delay for reflow
+
 
             }, 600); // Wait for the transition out to complete (0.6s)
         }
 
+
         function handleFormSubmit(event) {
             event.preventDefault();
-            
+            const form = event.target;
+            const name = form.name.value;
+
+
+            const messageBox = document.getElementById('messageBox');
+            const messageText = document.getElementById('messageText');
+
+
+            // Show confirmation message (mock success)
+            messageBox.classList.remove('hidden');
+            messageBox.classList.remove('bg-red-100', 'text-red-800');
+            messageBox.classList.add('bg-green-100', 'text-green-800');
+
+
+            messageText.innerHTML = `<span class="text-2xl mr-2">✅</span> Thank you, **${name}**! Your mock message has been received. We'll be in touch!`;
+
+
+            // Reset the form
+            form.reset();
         }
+
+
+        function createNavLink(item, isMobile = false) {
+            const link = document.createElement('a');
+            link.href = '#';
+            link.dataset.page = item.id;
+            link.textContent = item.label;
+            link.classList.add(
+                'nav-link',
+                'text-gray-600',
+                'hover:text-blue-500',
+                'text-lg',
+                'font-medium'
+            );
+            if (isMobile) {
+                link.classList.add('block', 'px-3', 'py-3', 'hover:bg-blue-50', 'rounded-lg');
+            }
+
+
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                renderPage(item.id);
+                if (isMobile) {
+                    navLinksMobile.classList.add('hidden'); // Close menu on mobile click
+                }
+            });
+            return link;
+        }
+
+
+        function updateNavLinks(activeId) {
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.dataset.page === activeId) {
+                    link.classList.add('active-nav');
+                }
+            });
+        }
+
+
+        function initNav() {
+            navItems.forEach(item => {
+                // Desktop link
+                navLinksDesktop.appendChild(createNavLink(item));
+                // Mobile link
+                navLinksMobile.appendChild(createNavLink(item, true));
+            });
+
+
+            // Mobile menu toggle
+            menuButton.addEventListener('click', () => {
+                navLinksMobile.classList.toggle('hidden');
+            });
+        }
+
+
+        window.onload = function() {
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+
+            // Setup navigation and initial page load
+            initNav();
+            renderPage('home');
+        };
+
+
     </script>
-    
 </body>
 </html>
+
+
+
+
