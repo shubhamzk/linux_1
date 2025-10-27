@@ -295,9 +295,9 @@
             
             // PAGE 3: SERVICES - Focus on detailed offerings and pricing
             services: {
-                title: 'Comprehesive Service Catalog 🛠️'
-                html: `
-                    <div class="bg-white p-8 rounded-2xl shadow-2xl mb-12">
+                title: 'Comprehesive Service Catalog 🛠️',
+                 html: `
+                     <div class="bg-white p-8 rounded-2xl shadow-2xl mb-12">
                         <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">Pricing Tiers and Solutions</h2>
 
                         <div class="grid lg:grid-cols-3 gap-8">
@@ -313,8 +313,172 @@
                                 <button onclick="renderPage('contact')" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 rounded-full transition duration-300">
                                     Choose Basic
                                 </button>
-                            </div>            
+                            </div>
+                            <!-- Tier 2 - Recommended -->
+                            <div class="bg-white p-8 rounded-xl shadow-2xl border-t-8 border-blue-600 transform scale-105 card-lift">
+                                <div class="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded-full inline-block mb-3"> RECOMMENDED ⭐ </div>
+                                <h4 class="text-3xl font-bold text-blue-800 mb-2"> Pro Powerhouse ⚡</h4>
+                                <p class="text-6xl font-extrabold text-gray-900 mb-6">$199<span class="text-xl font-medium text-gray-500">/mo</span></p>
+                                <ul class="space-y-3 text-gray-700 mb-8">
+                                     <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> Unlimited API Calls (Mock)</li>
+                                     <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> Priority 24/7 Support</li>
+                                     <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> Real-time Data Sync</li>
+                                </ul>
+                                <button onclick="renderPage('contact')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-full transition duration-300 shadow-lg">
+                                         Go Pro Today!
+                                </button>
+                    </div>
+                    <! -- Tier 3 -->
+                    <div class="bg-gray-50p-8 rounded-xl shadow-xl border-t-8 border-yellow-500 card-lift">
+                       <h4 class="text-2xl font-extrabold text-gray-800 mb-2">Experience Custom 👑</h4>
+                       <p class="text-5xl font-extrabold text-gray-900 mb-6">Custom<span class="text-xl font-medium text-gray-500">/quote</span></p>
+                       <ul class="space-y-3 text-gray-700 mb-8">
+                           <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> Dedicated Infrastucture</li>
+                           <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> Account Manager</li>
+                           <li class="flex items-center"><span class="text-gray-500 mr-2">✅</span> On-site Training</li>
+                        </ul>
+                        <button onclick="renderPage('contact')" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-full transition duration-300">
+                            Requset Quote
+                        </button>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 class="text-3xl font-bold text-gray-800 mb-6 mt-12 text-center">Detailed Service Modules 🧩</h3>
+                <div class="space-y-4">
+                   $ {generateFeatureCards (
+                      100, // 100 small cards for padding
+                       '➕',
+                       'Module Integration',
+                       'A key component of our service catalog, ensuring seamless connectivity and modular design.',
+                       'indigo'
+                    ) .replace (/grid md:grid-cols-4 sm:grid-cols-2 gap-6/g, 'flex flex-wrap gap-4')}
+                </div>
+              `   
+            },
+
+            // PAGE 4: CONTACT - Focus on Form, Location, and Socials
+            content: {
+                title: 'Contact With Our Global Team 📖',
+                 html: `
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <!-- Contact Form -->
+                        <div class="bg-white p-8 rounded-2xl shadow-2xl">
+                          <h2 class="text-3xl font-boldtext-blue-600 mb-6 flex items-center pulsing-dot">
+                              <span>Send Us a Message</span>
+                          </h2>
+                          <form id="contactForm" onsubmit="handleFormSubmit (event)" class="space-y-4">
+                             <div>
+                                  <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                  <input type="text" id="name" name="name" required class="mt-1" block w-full reounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                    <input type="email" id="email" name="name" required class="mt-1 block w-full reounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                                </div>
+                                <div>
+                                     <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                                     <input type="text" id="subject" name="subject" required class="mt-1 block w-full reounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                                </div>
+                                <div>
+                                     <label for="message" class="block text-sm font-medium text-gray-700">Your Inquiry</label>
+                                     <textarea id="message" name="message" rows="5" required class="mt-1 block w-full reounded-lg p-3 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm"></textarea>
+                                </div>
+                                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent-lg reounded-lg shadow-md text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+                                    Submit Request 📧
+                                 </button>
+                            </form>
+
+                            <div id-="messageBox" class="mt-6 p-4 reounded-lg hidden transition duration-300">
+                                <p id="messageText" class="font-medium flex items-center"></p>
+                            </div>
+                        </div>
+
+                        <!-- Info and Location -->
+                        <div class="space-y-8">
+                            <div class="bg-gray-100 p-8 rounded-2xl shadow-inner card-lift">
+                               <h3 class="text-3xl font-bold text-gray-800 mb-4 flex items-center"><span class="mr-3"> 📍</span> Our Headquarters</h3>
+                               <p class="text-gray-700 mb-2"> 1624 SKApp Tower, Integration drive,</p>
+                               <p class="ttext-gray-700 mb-4">Orange City, Nagpur 441601, Earth</p>
+                               <p class="text-blue-600 font-semibold flex items-center"><span class="mr-2">📞</span> +91 8888888888</p>
+                               <p class="text-blue-600 font-semibold flex items-center"><span class="mr-2">📧</span> helpdesk@skapp.com</p>
+                            </div>
+                            
+                            <div class="bg-gray-100 p-8 rounded-2xl shadow-inner card-lift">
+                                <h3 class="text-3xl font-bold text-gray-800 mb-4 flex items-center"><span class="mr-3">⏰</span> Business Hours</h3>
+                                <ul class="space-y-2 text-gray-700">
+                                      <li>Monday - Friday: 09:00 AM - 06:00 PM</li>
+                                      <li>Saturday: 10:00 AM - 4:00 PM</li>
+                                      <li>Sunday: Closed 😴 </li>
+                                </ul>
+                            </div>
+
+                            <h3 class="text-3xl font-bold text-gray-800 mt-12 mb-6 flex items-center"><span class="mr-3">🔗</span> Find Us Online</h3>
+                            <div class="flex space-x-6">
+                                <a href="#" class="text-4xl hover:text-blue-500 transition duration-300">🐦</a>
+                                <a href="#" class="text-4xl hover:text-blue-700 transition duration-300">🔗</a>
+                                <a href="#" class="text-4xl hover:text-red-600 transition duration-300">🔴</a>
+                                <a href="#" class="text-4xl hover:text-green-600 transition duration-300">🟢</a>
+                            </div>
+                        </div>
+                    </div>
+                `                                                  
             }
+        };
+
+        // --- JavaScript Logic for Routing and Interaction ---
+
+        function renderPage(pageId) {
+            const page = pageContent[pageId];
+            if (!page) return;
+
+            if (pageId === currentPage) {
+                // If already on the page, just scroll to top
+                window.scrollTo ({ top: 0, behavior: 'smooth'});
+                return;
+            }
+
+            // 1. Start transition animation out
+            contentContainer.classList.remove('active');
+            pageTitleElement.style.opacity = 0; // Fade out the title immediately
+
+            setTimeout ( () => {
+                // 2. Update Content
+                document.title = `${page.title} | SKApp`;
+
+                // Set the title first
+                pageTitleElement.innerHTML = page.title;
+                pageTitleElement.style.opacity = 1;
+
+                // Create a temorary container for the new content body
+                const newContentBody = document.createElement('div');
+                newContentBody.innerHTML = page.html;
+
+                // Replace content body (keeping the H1 title)
+                // We clear everything except the first child (which is the H! title)
+                while (contentContainer.children.length> 1) {
+                    contentContainer.removeChild(contentContainer.lastChild);
+                }
+
+                contentContainer.appendChild(newContentBody);
+
+
+                // 3. Update active nav state
+                updateNavLinks(pageId);
+
+                // 4. Start transition animation in
+                setTimeout ( () => {
+                    contentContainer.classList.add('active');
+                    window.scrollTo({ top: 0, behavior: 'smooth'});
+                    currentPage = pageId;
+                }, 10); // Small delay for reflow
+
+            }, 600); // Wait for the transition out to complete (0.6s)
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
         }
     </script>
     
