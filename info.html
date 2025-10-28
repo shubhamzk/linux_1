@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📘 Info Page </title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* 🎨 Extra local styling for Info Page */
+        .info-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            margin: 25px auto;
+            padding: 25px;
+            width: 80%;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s ease, background 0.4s;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .highlight {
+            color: #0066ff;
+            font-weight: bold;
+        }
+        .bounce {
+            animation: bounce 2s infinite ease-in-out;
+            display: inline-block;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0);}
+            50% { transform: translateY(-10px);}
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>📘 Information Center</h1>
+        <nav>
+            <a href="index.html">🏠 Home</a>
+            <a href="about.html">ℹ️ About</a>
+            <a href="info.html">📘 Info</a>
+            <a href="contact.html">☎️ contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="info-card">
+            <h2>💡 What Is This Site About?</h2>
+            <p>
+                This page provides extra information about our colorful HTML & CSS world 🌈. 
+                we explore animations ✨, gradients 🎨, and everything that makes the web fun!
+            </p>
+        </section>
+
+        <section class="info-card">
+            <h2>📊 Technologies Used</h2>
+            <ul>
+                <li>🌍 <span class="highlight">HTML5</span> - structure and content</li>
+                <li>🎨 <span class="highlight">CSS3</span> - styling and animation</li>
+                <li>⚙️ No JavaScript needed - pure CSS power!</li>
+            </ul>
+        </section>
+
+        <section class="info-card">
+            <h2>🧩 CSS Tricks</h2>
+            <p>
+                Did you know? Yuo can animate nearly anything with CSS -
+                even gradients, shadows, and text colors! 🌟
+            </p>
+        </section>
+
+        <section class="info-card">
+            <h2>📈 Responsive Design</h2>
+        </section>
+    </main>
+    
+</body>
+</html>
